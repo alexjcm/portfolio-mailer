@@ -14,6 +14,7 @@
 # misc
 .DS_Store
 .env.development
+.env.development.copy
 .env.production
 
 npm-debug.log*

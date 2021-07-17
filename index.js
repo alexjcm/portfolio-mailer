@@ -1,24 +1,28 @@
-'use strict';
 const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const cors = require('cors');
+
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 dotenv.config({
   path: `./.env.${process.env.NODE_ENV}`,
 });
-const app = express();
-// Parse incoming requests data (https://github.com/expressjs/body-parser)
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
 
+const corsOptions = {
+  origin: ['http://localhost:3000'],
+  optionsSuccessStatus: 200, // For legacy browser support
+};
+app.use(cors(corsOptions));
 const PORT = process.env.PORT;
 app.listen(process.env.PORT, () => {
   console.log(`Server listening on port: http://localhost:${PORT}`);
 });
 
 // Configuring SMTP Server
-// create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: process.env.SMTP_PORT,
@@ -26,32 +30,39 @@ const transporter = nodemailer.createTransport({
     user: process.env.SMTP_USERNAME,
     pass: process.env.SMTP_PASSWORD,
   },
-  secure: false, // true for 465, false for other ports
+  secure: false, // true for 465 (use SSL), false for other ports
+  debug: true, // show debug output
+  logger: true, // log information in console
 });
 
-/**
- * http://localhost:PORT/send-mail
- */
 app.post('/send-mail', (req, res) => {
-  const {to, subject, text} = req.body;
+  const {name, from, html} = req.body;
+  const to = process.env.CONTACT_EMAIL;
+  console.log('from --> ', from);
+
   const mailData = {
-    from: '"Alex JCM" <alexjhcm@gmail.com>',
+    from: name + ' <' + from + '>',
     to: to,
-    subject: subject,
-    text: text,
-    html: '<b>Hey there! </b><br> This is our first message sent with Nodemailer<br/>',
+    subject: '📌 New message sent from Personal Page',
+    html: html,
   };
 
   transporter.sendMail(mailData, (error, info) => {
     if (error) {
       console.log('error: ', error);
-      res.status(500).send(error.message);
-      return console.log('error: ', error);
+      res.status(500).send({
+        status: 'fail',
+        message: 'Mail failed to send',
+        error: error.message,
+      });
     }
-    res.status(200).send({message: 'Mail send', message_id: info.messageId});
+    res.status(200).send({
+      status: 'success',
+      message: 'Mail send',
+    });
   });
 });
 
 app.get('/test', (req, res) => {
-  res.send(`Nodemailer with express: ${process.env.NODE_ENV}`);
+  res.send(`Nodemailer with Express: ${process.env.NODE_ENV}`);
 });
