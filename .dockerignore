@@ -1,0 +1,10 @@
+# Items that don't need to be in a Docker image.
+Dockerfile*
+.env*
+.git
+.gitignore
+.dockerignore
+npm-debug.log
+README.md
+node_modules
+build

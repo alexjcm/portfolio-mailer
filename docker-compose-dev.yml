@@ -1,0 +1,13 @@
+version: '3'
+services:
+  markdown-editor:
+    ports:
+      - "${PORT}:${PORT}"
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /home/alexjcm/Documentos/projects/portfolio/portfolio-mailer:/portfolio-mailer
+    working_dir: /portfolio-mailer
+    env_file:
+      - ./.env.development
