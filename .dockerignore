@@ -1,9 +1,11 @@
 # Items that don't need to be in a Docker image.
-Dockerfile*
-.env*
+Dockerfile.dev
+Dockerfile.prod
+.env.development
+.env.development.copy
+.env.production
 .git
 .gitignore
-.dockerignore
 npm-debug.log
 README.md
 node_modules
