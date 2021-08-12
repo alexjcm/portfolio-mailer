@@ -4,7 +4,6 @@ WORKDIR /portfolio-mailer
 COPY package*.json ./
 RUN npm install
 COPY . .
-#RUN yarn build
 
 # Run Stage Start
 FROM nginx

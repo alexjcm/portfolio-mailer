@@ -7,11 +7,11 @@
     "start": "NODE_ENV=development node ./index.js",
     "start-prod": "NODE_ENV=production node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docker:build": "docker build -f Dockerfile.dev --rm -t portfolio-mailer-image .",
-    "docker:run": "docker run --rm -v /home/alexjcm/Documentos/projects/portfolio/portfolio-mailer:/portfolio-mailer -p 5000:5000 --env-file ./.env.development --name portfolio-mailer portfolio-mailer-image",
-    "docker:stop": "docker rm -f portfolio-mailer",
-    "docker:build-prod": "docker build -f Dockerfile.prod --rm -t portfolio-mailer-image .",
-    "docker:run-prod": "docker run --rm -v /home/alexjcm/Documentos/projects/portfolio/portfolio-mailer:/portfolio-mailer -p 5000:80 --env-file ./.env.production --name portfolio-mailer portfolio-mailer-image"
+    "docker-build": "docker build --rm -t portfolio-mailer .",
+    "docker-run": "docker run --rm -v ${pwd}:/portfolio-mailer -p 5000:5000 --env-file ./.env.development --name portfolio-mailer-app portfolio-mailer",
+    "docker-stop": "docker rm -f portfolio-mailer-app",
+    "docker-build-prod": "docker build -f Dockerfile.prod --rm -t portfolio-mailer .",
+    "docker-run-prod": "docker run --rm -v ${pwd}:/portfolio-mailer -p 5000:80 --env-file ./.env.production --name portfolio-mailer-app portfolio-mailer"
   },
   "author": "alexjcm",
   "license": "MIT",

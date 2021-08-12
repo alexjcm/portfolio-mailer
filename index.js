@@ -22,7 +22,7 @@ app.listen(process.env.PORT, () => {
   console.log(`Server listening on port: http://localhost:${PORT}`);
 });
 
-console.log("process.env.SMTP_HOST --> ", process.env.SMTP_HOST)
+console.log('process.env.SMTP_HOST --> ', process.env.SMTP_HOST);
 // Configuring SMTP Server
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
