@@ -3,49 +3,51 @@ const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const emailConfig = require('./constants');
+
+dotenv.config()
 
 const app = express();
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-dotenv.config({
-  path: `./.env.${process.env.NODE_ENV}`,
-});
+// dotenv.config({
+//   path: `./.env.${process.env.NODE_ENV}`,
+// });
 
 const corsOptions = {
-  origin: ['http://localhost:3000'],
+  origin: emailConfig.WHITELIST,
   optionsSuccessStatus: 200, // For legacy browser support
 };
+
 app.use(cors(corsOptions));
-const PORT = process.env.PORT;
-app.listen(process.env.PORT, () => {
-  console.log(`Server listening on port: http://localhost:${PORT}`);
+
+// Iniciar el servidor
+app.listen(emailConfig.PORT, () => {
+  console.log(`Server listening on port: http://localhost:${emailConfig.PORT}`);
 });
 
-console.log('process.env.SMTP_HOST --> ', process.env.SMTP_HOST);
 // Configuring SMTP Server
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
+  host: emailConfig.SMTP_HOST,
   auth: {
     user: process.env.SMTP_USERNAME,
     pass: process.env.SMTP_PASSWORD,
   },
-  secure: false, // true for 465 (use SSL), false for other ports
-  debug: true, // show debug output
+  secure: true, // true for 465 (use SSL), false for other ports
   logger: true, // log information in console
 });
 
-app.post('/send-mail', (req, res) => {
-  const {name, from, html} = req.body;
-  const to = process.env.CONTACT_EMAIL;
-  console.log('from --> ', from);
+// Ruta para enviar correo electrónico
+app.post('/sendMail', (req, res) => {
+  const { name, to, message } = req.body;
+  const from = emailConfig.CONTACT_EMAIL;
 
   const mailData = {
-    from: name + ' <' + from + '>',
-    to: to,
+    from: from,
+    to: 'alexjhcm@gmail.com',
     subject: '📌 New message sent from Personal Page',
-    html: html,
+    html: '<h3>Hola,</h3><p>' + name + ', cuyo correo es: ' + to + ' te ha enviado el siguiente mensaje:</p><p>' + message + '</p>',
   };
 
   transporter.sendMail(mailData, (error, info) => {
