@@ -1,6 +1,4 @@
 # Items that don't need to be in a Docker image.
-Dockerfile.dev
-Dockerfile.prod
 .git
 .gitignore
 npm-debug.log
