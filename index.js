@@ -24,9 +24,9 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// Iniciar el servidor
+// Start server
 app.listen(emailConfig.PORT, () => {
-  console.log(`Server listening on port: http://localhost:${emailConfig.PORT}`);
+  console.log(`Server listening on port: ${emailConfig.PORT}`);
 });
 
 // Configuring SMTP Server
@@ -40,7 +40,6 @@ const transporter = nodemailer.createTransport({
   logger: true, // log information in console
 });
 
-// Ruta para enviar correo electrónico
 app.post('/sendMail', (req, res) => {
   const { name, to, message } = req.body;
   const from = emailConfig.CONTACT_EMAIL;
@@ -69,5 +68,5 @@ app.post('/sendMail', (req, res) => {
 });
 
 app.get('/test', (req, res) => {
-  res.send(`Nodemailer with Express: ${process.env.NODE_ENV}, SMTP_USERNAME: ${process.env.SMTP_USERNAME}`);
+  res.send(`Express.js and Nodemailer: ${process.env.NODE_ENV}`);
 });
