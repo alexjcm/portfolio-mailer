@@ -11,9 +11,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// dotenv.config({
-//   path: `./.env.${process.env.NODE_ENV}`,
-// });
+// if (process.env.NODE_ENV == 'development') {
+//   dotenv.config({
+//     path: './.env',
+//   });
+// }
 
 const corsOptions = {
   origin: emailConfig.WHITELIST,
@@ -67,5 +69,5 @@ app.post('/sendMail', (req, res) => {
 });
 
 app.get('/test', (req, res) => {
-  res.send(`Nodemailer with Express: ${process.env.NODE_ENV}`);
+  res.send(`Nodemailer with Express: ${process.env.NODE_ENV}, SMTP_USERNAME: ${process.env.SMTP_USERNAME}`);
 });

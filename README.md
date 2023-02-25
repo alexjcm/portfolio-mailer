@@ -43,6 +43,8 @@ Start container:
 
 ```bash
 docker run --rm -d -p 5000:5000 --name my-portfolio-mailer alexjcm/portfolio-mailer
+
+docker run --rm -d -p 5000:5000 --name my-portfolio-mailer --env-file $HOME/secrets/.env alexjcm/portfolio-mailer
 ```
 
 Stop container:
