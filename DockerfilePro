@@ -1,0 +1,22 @@
+FROM node:14-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+COPY . .
+
+RUN npm install
+
+# Establece la variable de entorno NODE_ENV en "production"
+ENV NODE_ENV=production
+
+# Exponer el puerto utilizado por el servidor web
+EXPOSE 5000
+
+
+# Comando para iniciar el servidor web
+#CMD ["node", "index.js"]
+
+# Inicia la aplicación
+CMD [ "npm", "start" ]

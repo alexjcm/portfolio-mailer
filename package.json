@@ -1,11 +1,8 @@
 {
   "name": "portfolio-mailer",
-  "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.1.0",
   "scripts": {
     "start": "NODE_ENV=development node ./index.js",
-    "start-prod": "NODE_ENV=production node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "docker-build": "docker build --rm -t portfolio-mailer .",
     "docker-run": "docker run --rm -v ${pwd}:/portfolio-mailer -p 5000:5000 --env-file ./.env.development --name portfolio-mailer-app portfolio-mailer",
@@ -14,12 +11,11 @@
     "docker-run-prod": "docker run --rm -v ${pwd}:/portfolio-mailer -p 5000:80 --env-file ./.env.production --name portfolio-mailer-app portfolio-mailer"
   },
   "author": "alexjcm",
-  "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "nodemailer": "^6.6.3"
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.1"
   }
 }
