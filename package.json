@@ -2,7 +2,11 @@
   "name": "portfolio-ws",
   "version": "1.1.1",
   "scripts": {
-    "start": "node ./index.js"
+    "start": "node server.js",
+    "test": "jest",
+    "test:det": "jest --detectOpenHandles",
+    "test:coverage": "jest --coverage",
+    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
   },
   "author": "alexjcm",
   "dependencies": {
@@ -12,5 +16,11 @@
     "express": "^4.18.2",
     "express-validator": "^6.15.0",
     "nodemailer": "^6.9.1"
+  },
+  "devDependencies": {
+    "jest": "^29.4.3",
+    "jest-html-reporter": "^3.7.0",
+    "supertest": "^6.3.3",
+    "prettier": "^2.8.4"
   }
 }
