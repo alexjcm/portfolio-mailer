@@ -1,11 +1,11 @@
-# Web service app &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/master/LICENSE) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg) [![Publish docker image](https://github.com/alexjcm/portfolio-mailer/actions/workflows/publish-docker-image.yml/badge.svg?branch=main)](https://github.com/alexjcm/portfolio-mailer/actions/workflows/publish-docker-image.yml)
+# Web service app &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/master/LICENSE) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg) [![Publish docker image](https://github.com/alexjcm/portfolio-ws/actions/workflows/publish-docker-image.yml/badge.svg?branch=main)](https://github.com/alexjcm/portfolio-ws/actions/workflows/publish-docker-image.yml)
 
 ## Installation
 
 Clone or download this repository:
 
 ```
-git clone https://github.com/alexjcm/portfolio-mailer.git
+git clone https://github.com/alexjcm/portfolio-ws.git
 ```
 
 ## Dependencies
@@ -30,25 +30,25 @@ Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 Build image:
 
 ```bash
-docker build -t alexjcm/portfolio-mailer -f DockerfilePro .
+docker build -t alexjcm/portfolio-ws -f DockerfilePro .
 ```
 
 Or
 
 ```bash
-docker pull alexjcm/portfolio-mailer
+docker pull alexjcm/portfolio-ws
 ```
 
 Start container:
 
 ```bash
-docker run --rm -d -p 5000:5000 --name my-portfolio-mailer --env-file $HOME/secrets/.env alexjcm/portfolio-mailer
+docker run --rm -d -p 5000:5000 --name my-portfolio-ws --env-file $HOME/secrets/.env alexjcm/portfolio-ws
 ```
 
 Stop container:
 
 ```bash
-docker stop my-portfolio-mailer
+docker stop my-portfolio-ws
 ```
 
 ## Conventional commits
