@@ -4,3 +4,6 @@
 npm-debug.log
 README.md
 node_modules
+tests
+__tests__
+coverage

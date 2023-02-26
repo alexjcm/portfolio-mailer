@@ -42,13 +42,13 @@ docker pull alexjcm/portfolio-ws
 Start container:
 
 ```bash
-docker run --rm -d -p 5000:5000 --name my-portfolio-ws --env-file $HOME/secrets/.env alexjcm/portfolio-ws
+docker run --rm -d -p 5000:5000 --name portfolio-ws --env-file $HOME/secrets/.env alexjcm/portfolio-ws
 ```
 
 Stop container:
 
 ```bash
-docker stop my-portfolio-ws
+docker stop portfolio-ws
 ```
 
 ## Conventional commits
