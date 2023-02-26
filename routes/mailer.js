@@ -3,8 +3,8 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
 const { validationResult } = require('express-validator');
-const { bodyEmailValidation } = require('../validations');
-const { emailConfig, messages } = require('../constants');
+const { bodyEmailValidation } = require('../utils/validations');
+const { emailConfig, messages } = require('../utils/constants');
 
 dotenv.config();
 
