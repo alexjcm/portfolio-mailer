@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const { serverConfig } = require('./utils/constants');
 const mailerRouter = require('./routes/mailer');
+const projectRouter = require('./routes/projects');
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,11 +18,11 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-/* Telling the server to use the routes in the mailerRouter file. */
 app.use('', mailerRouter);
+app.use('', projectRouter);
 
 /**
- * Handling inexsitent routes
+ * Handling inexsitent routes. Default response for any other request
  */
 app.use((req, res, next) => {
   res.status(404).json({
