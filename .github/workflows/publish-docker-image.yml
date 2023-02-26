@@ -29,12 +29,12 @@ jobs:
           context: .
           file: ./DockerfilePro
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/portfolio-mailer:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/portfolio-ws:latest
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v3
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          repository: ${{ secrets.DOCKER_HUB_USERNAME }}/portfolio-mailer
+          repository: ${{ secrets.DOCKER_HUB_USERNAME }}/portfolio-ws
           short-description: ${{ github.event.repository.description }}

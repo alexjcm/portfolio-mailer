@@ -3,30 +3,25 @@ const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const emailConfig = require('./constants');
+const { validationResult } = require('express-validator');
+const { bodyEmailValidation } = require('./validations');
+const { serverConfig, emailConfig, messages } = require('./constants');
 
-dotenv.config()
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// if (process.env.NODE_ENV == 'development') {
-//   dotenv.config({
-//     path: './.env',
-//   });
-// }
+dotenv.config()
 
 const corsOptions = {
-  origin: emailConfig.WHITELIST,
+  origin: serverConfig.WHITELIST,
   optionsSuccessStatus: 200, // For legacy browser support
 };
 
 app.use(cors(corsOptions));
-
-// Iniciar el servidor
-app.listen(emailConfig.PORT, () => {
-  console.log(`Server listening on port: http://localhost:${emailConfig.PORT}`);
+// Start server
+app.listen(serverConfig.PORT, () => {
+  console.log(`Server listening on port: ${serverConfig.PORT}`);
 });
 
 // Configuring SMTP Server
@@ -36,38 +31,62 @@ const transporter = nodemailer.createTransport({
     user: process.env.SMTP_USERNAME,
     pass: process.env.SMTP_PASSWORD,
   },
-  secure: true, // true for 465 (use SSL), false for other ports
-  logger: true, // log information in console
+  secure: emailConfig.SMTP_USE_SSL,
+  logger: false, // log information in console
 });
 
-// Ruta para enviar correo electrónico
-app.post('/sendMail', (req, res) => {
+/**
+ * 
+ */
+app.post('/sendMail', bodyEmailValidation, (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({
+      status: messages.FAIL_STATUS,
+      errors: errors.array()
+    });
+  }
+
   const { name, to, message } = req.body;
-  const from = emailConfig.CONTACT_EMAIL;
 
   const mailData = {
-    from: from,
-    to: 'alexjhcm@gmail.com',
-    subject: '📌 New message sent from Personal Page',
-    html: '<h3>Hola,</h3><p>' + name + ', cuyo correo es: ' + to + ' te ha enviado el siguiente mensaje:</p><p>' + message + '</p>',
+    from: emailConfig.SENDER_EMAIL,
+    to: emailConfig.TO_EMAIL,
+    subject: messages.DEFAULT_SUBJECT,
+    html: '<h3>Hola,</h3><p>' + name + ', cuyo correo es: ' + to + ' te ha enviado el siguiente mensaje desde alexjcm.me:</p><p>' + message + '</p>',
   };
 
   transporter.sendMail(mailData, (error, info) => {
     if (error) {
-      console.log('error: ', error);
       res.status(500).send({
-        status: 'fail',
-        message: 'Mail failed to send',
+        status: messages.FAIL_STATUS,
+        message: messages.FAILED_MESSAGE,
         error: error.message,
       });
     }
     res.status(200).send({
-      status: 'success',
-      message: 'Mail send',
+      status: messages.SUCCESS_STATUS,
+      message: messages.SUCCESS_MESSAGE,
+      info: info.response
     });
   });
 });
 
 app.get('/test', (req, res) => {
-  res.send(`Nodemailer with Express: ${process.env.NODE_ENV}, SMTP_USERNAME: ${process.env.SMTP_USERNAME}`);
+  // Verify SMTP connection configuration
+  transporter.verify(function (error, success) {
+    if (error) {
+      res.status(500).send({
+        status: 'not ready',
+        msg: error,
+        error: error.message,
+      });
+    } else {
+      res.status(200).send({
+        status: 'ready',
+        message: 'Server is ready to take our messages',
+        aditionalInfo: `Express.js and Nodemailer: ${process.env.NODE_ENV}`
+      });
+    }
+  });
 });
