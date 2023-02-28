@@ -31,6 +31,22 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/portfolio-ws:latest
 
+      - name: Send telegram message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
+          message: |
+            *DOCKER IMAGE PUSH SUCCESSFUL*
+
+            Repository: *${{ github.repository }}*
+
+            *${{ github.actor }}* created commit message:
+            ${{ github.event.commits[0].message }}          
+               
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v3
         with:
