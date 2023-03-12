@@ -54,9 +54,7 @@ npm install
 
 4. Modify .env file.
 
-5. Use **npm run db:migrate** command to create database tables.
-
-6. Finally, in the project directory, you can run: your app will run successfully with **npm run start:dev** command
+5. Finally, in the project directory, you can run: your app will run successfully with **npm run start:dev** command
 
 Or `npm start`
 

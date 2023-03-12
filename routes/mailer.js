@@ -1,10 +1,11 @@
 const express = require('express');
-const router = express.Router();
-const nodemailer = require('nodemailer');
-const dotenv = require('dotenv');
 const { validationResult } = require('express-validator');
+const dotenv = require('dotenv');
+const nodemailer = require('nodemailer');
 const { bodyEmailValidation } = require('../utils/validations');
 const { emailConfig, messages } = require('../utils/constants');
+
+const router = express.Router();
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ const transporter = nodemailer.createTransport({
 router.post('/sendMail', bodyEmailValidation, (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    console.error('errors: ', errors);
     return res.status(422).json({
       status: messages.FAIL_STATUS,
       errors: errors.array(),
@@ -37,15 +39,14 @@ router.post('/sendMail', bodyEmailValidation, (req, res) => {
     from: emailConfig.SENDER_EMAIL,
     to: emailConfig.TO_EMAIL,
     subject: messages.DEFAULT_SUBJECT,
-    html:
-      '<h3>Hola,</h3><p>' +
-      name +
-      ', cuyo correo es: ' +
+    html: '<h3>Hola,</h3><p>' +
+      name + ', cuyo correo es: ' +
       to +
       ' te ha enviado el siguiente mensaje desde alexjcm.me:</p><p>' +
-      message +
-      '</p>',
+      message + '</p>',
   };
+
+  console.log("mailData: ", mailData);
 
   transporter.sendMail(mailData, (error, info) => {
     if (error) {
@@ -54,12 +55,15 @@ router.post('/sendMail', bodyEmailValidation, (req, res) => {
         message: messages.FAILED_MESSAGE,
         error: error.message,
       });
+
+      console.error("Mail failed to send - ", error);
+    } else {
+      res.status(200).send({
+        status: messages.SUCCESS_STATUS,
+        message: messages.SUCCESS_MESSAGE,
+        info: info.response,
+      });
     }
-    res.status(200).send({
-      status: messages.SUCCESS_STATUS,
-      message: messages.SUCCESS_MESSAGE,
-      info: info.response,
-    });
   });
 });
 

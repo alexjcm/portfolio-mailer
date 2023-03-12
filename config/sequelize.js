@@ -13,9 +13,9 @@ const defaultConfig = {
     database: DB_NAME,
     host: DB_HOST,
     port: Number(DB_PORT),
-    define: {
-        paranoid: true,
-    },
+    // define: {  --------------> FIXME
+    //     paranoid: true,
+    // },
     storage: './data/projects.db'
 };
 

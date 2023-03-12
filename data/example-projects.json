@@ -2,26 +2,31 @@
   {
     "name": "Markdown Editor",
     "description": "A lightweight markup language editor known as markdow that includes features such as code support, image support, mathematical symbols and formulas, and emoji chat.",
-    "link": ""
+    "link": "",
+    "status": true
   },
   {
     "name": "Covid-19 Global Cases Tracker",
     "description": "This web application includes features such as an interactive map, cases by country, cacunas deployed by country and new cases in the world.",
-    "link": ""
+    "link": "",
+    "status": true
   },
   {
     "name": "Cryptocurrency Tracker",
     "description": "Cryptocurrency price tracker with React.js and CoinGecko API V3 to retrieve real-time and historical data for different cryptocurrencies.",
-    "link": ""
+    "link": "",
+    "status": true
   },
   {
     "name": "Electronic Certification Module",
     "description": "Web solution that automates the academic certification process for students of the Systems Engineering/Computation career at the Universidad Nacional de Loja.",
-    "link": ""
+    "link": "",
+    "status": true
   },
   {
     "name": "Image classification of skin cancer",
     "description": "Web application for image classification of skin cancer through the use of supervised machine learning and a kaggle datasets.",
-    "link": ""
+    "link": "",
+    "status": true
   }
 ]
