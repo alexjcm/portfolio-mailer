@@ -3,6 +3,7 @@
 ## Features
 
 # TODO
+
 - Production ready Dockerfile.
 - Api documentation with swagger.
 - Records are never deleted from the database. They are marked as deleted.
@@ -35,6 +36,7 @@ Note: The default and active database is postgresql. If you want to use postgres
 - SQLite database
 - dotenv module for setting environment
 - sequelize ORM
+- Implemented [sentry](https://sentry.io) error tracking.
 
 ## Installation
 

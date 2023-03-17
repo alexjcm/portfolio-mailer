@@ -39,14 +39,17 @@ router.post('/sendMail', bodyEmailValidation, (req, res) => {
     from: emailConfig.SENDER_EMAIL,
     to: emailConfig.TO_EMAIL,
     subject: messages.DEFAULT_SUBJECT,
-    html: '<h3>Hola,</h3><p>' +
-      name + ', cuyo correo es: ' +
+    html:
+      '<h3>Hola,</h3><p>' +
+      name +
+      ', cuyo correo es: ' +
       to +
       ' te ha enviado el siguiente mensaje desde alexjcm.me:</p><p>' +
-      message + '</p>',
+      message +
+      '</p>',
   };
 
-  console.log("mailData: ", mailData);
+  console.log('mailData: ', mailData);
 
   transporter.sendMail(mailData, (error, info) => {
     if (error) {
@@ -56,7 +59,7 @@ router.post('/sendMail', bodyEmailValidation, (req, res) => {
         error: error.message,
       });
 
-      console.error("Mail failed to send - ", error);
+      console.error('Mail failed to send - ', error);
     } else {
       res.status(200).send({
         status: messages.SUCCESS_STATUS,
@@ -86,6 +89,13 @@ router.get('/test', (req, res) => {
       });
     }
   });
+});
+
+/**
+ * Test Sentry configuration
+ */
+router.get('/testSentry', (req, res) => {
+  throw new Error('My first Sentry error!');
 });
 
 module.exports = router;
