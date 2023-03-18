@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import * as Sentry from '@sentry/node';
 import mailerRouter from './routes/mailer';
 import projectRouter from './routes/projects';
+import swaggerRouter from './routes/swagger';
 import corsOptions from './config/cors';
 import sentryConfig from './config/sentry';
 
@@ -32,6 +33,7 @@ app.use(compression());
  */
 app.use('', mailerRouter);
 app.use('', projectRouter);
+app.use('', swaggerRouter);
 
 /**
  * Handling inexsitent routes. Default response for any other request
