@@ -1,6 +1,6 @@
-const { check } = require('express-validator');
+import { check } from 'express-validator';
 
-exports.bodyEmailValidation = [
+export const bodyEmailValidation = [
   check('name', 'name is required').not().isEmpty(),
   check('to', 'Please include a valid email')
     .isEmail()

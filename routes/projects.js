@@ -1,23 +1,23 @@
-const express = require('express');
-const sqlite3 = require('sqlite3');
-const myModels = require('../models');
+import express from 'express';
+import sqlite3 from 'sqlite3';
+import myModels from '../models';
 
 const router = express.Router();
 
 //Sync Database
 myModels
   .sync()
-  .then(function () {
+  .then(() => {
     console.log('Connected to database');
   })
-  .catch(function (err) {
+  .catch((err) => {
     console.log('Error connecting to database: ', err);
   });
 
 /**
  * Get all active projects
  */
-router.get('/projects', function (req, res, next) {
+router.get('/projects', (req, res, next) => {
   try {
     myModels.models.project
       .findAll({ where: { status: true } })
@@ -32,7 +32,7 @@ router.get('/projects', function (req, res, next) {
   }
 });
 
-router.post('/projects', function (req, res, next) {
+router.post('/projects', (req, res, next) => {
   try {
     myModels.models.project
       .create({
@@ -56,7 +56,7 @@ router.post('/projects', function (req, res, next) {
 /**
  * GET /projectById/:id
  */
-router.get('/projectById/:id', function (req, res, next) {
+router.get('/projectById/:id', (req, res, next) => {
   try {
     const { id: projectId } = req.params;
 
@@ -77,4 +77,4 @@ router.get('/projectById/:id', function (req, res, next) {
   }
 });
 
-module.exports = router;
+export default router;

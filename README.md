@@ -34,9 +34,9 @@ Note: The default and active database is postgresql. If you want to use postgres
 - [expressjs](https://github.com/expressjs/express) - The server for handling and routing HTTP requests. It is a backend framework for Node.js.
 - [nodemailer](https://github.com/nodemailer/nodemailer) - Is a module for Node.js applications to allow easy as cake email sending
 - SQLite database
+- SQL database implementation with **[Sequelize v6](https://sequelize.org/docs/v6/)** ORM
 - dotenv module for setting environment
-- sequelize ORM
-- Implemented [sentry](https://sentry.io) error tracking.
+- Implemented [sentry](https://sentry.io) error tracking and monitoring
 
 ## Installation
 

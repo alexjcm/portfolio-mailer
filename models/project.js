@@ -1,6 +1,6 @@
-const { DataTypes, Model } = require('sequelize');
+import { DataTypes, Model } from 'sequelize';
 
-module.exports = function (sequelize) {
+export default function (sequelize) {
   class Project extends Model {}
 
   Project.init(
@@ -36,4 +36,4 @@ module.exports = function (sequelize) {
   );
 
   return Project;
-};
+}

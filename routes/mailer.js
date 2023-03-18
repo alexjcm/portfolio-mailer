@@ -1,9 +1,9 @@
-const express = require('express');
-const { validationResult } = require('express-validator');
-const dotenv = require('dotenv');
-const nodemailer = require('nodemailer');
-const { bodyEmailValidation } = require('../utils/validations');
-const { emailConfig, messages } = require('../utils/constants');
+import express from 'express';
+import { validationResult } from 'express-validator';
+import dotenv from 'dotenv';
+import nodemailer from 'nodemailer';
+import { bodyEmailValidation } from '../utils/validations';
+import { emailConfig, messages } from '../utils/constants';
 
 const router = express.Router();
 
@@ -98,4 +98,4 @@ router.get('/testSentry', (req, res) => {
   throw new Error('My first Sentry error!');
 });
 
-module.exports = router;
+export default router;

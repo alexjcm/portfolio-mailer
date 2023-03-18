@@ -1,4 +1,4 @@
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -11,9 +11,6 @@ const defaultConfig = {
   database: DB_NAME,
   host: DB_HOST,
   port: Number(DB_PORT),
-  // define: {  --------------> FIXME
-  //     paranoid: true,
-  // },
   storage: './data/projects.db',
 };
 
@@ -31,4 +28,4 @@ const production = {
   logging: false,
 };
 
-module.exports = { development, test, production };
+export { development, test, production };

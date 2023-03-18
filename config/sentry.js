@@ -1,6 +1,5 @@
-// using CommonJS
-const Sentry = require('@sentry/node');
-const Tracing = require('@sentry/tracing');
+import * as Sentry from '@sentry/node';
+import * as Tracing from '@sentry/tracing';
 
 const sentryConfig = (app) => ({
   dsn: process.env.SENTRY_DSN,
@@ -16,4 +15,4 @@ const sentryConfig = (app) => ({
   tracesSampleRate: 1.0,
 });
 
-module.exports = sentryConfig;
+export default sentryConfig;

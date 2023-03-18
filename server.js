@@ -1,4 +1,5 @@
 // JavaScript CommonJS syntax
+require('@babel/register');
 const app = require('./app');
 const { serverConfig } = require('./utils/constants');
 

@@ -18,4 +18,4 @@ const messages = {
   DEFAULT_SUBJECT: '📌 New message sent from personal page alexjcm.me',
 };
 
-module.exports = { serverConfig, emailConfig, messages };
+export { serverConfig, emailConfig, messages };
