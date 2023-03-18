@@ -1,15 +1,13 @@
-import express from 'express';
-import { validationResult } from 'express-validator';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
-import { bodyEmailValidation } from '../utils/validations';
+import { validationResult } from 'express-validator';
 import { emailConfig, messages } from '../utils/constants';
-
-const router = express.Router();
 
 dotenv.config();
 
-// Configuring SMTP Server
+/**
+ * Configuring SMTP Server
+ */
 const transporter = nodemailer.createTransport({
   host: emailConfig.SMTP_HOST,
   auth: {
@@ -21,9 +19,9 @@ const transporter = nodemailer.createTransport({
 });
 
 /**
- *
+ * Send email
  */
-router.post('/sendMail', bodyEmailValidation, (req, res) => {
+export const sendEmail = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.error('errors: ', errors);
@@ -68,12 +66,12 @@ router.post('/sendMail', bodyEmailValidation, (req, res) => {
       });
     }
   });
-});
+};
 
 /**
  * Verify SMTP connection configuration
  */
-router.get('/test', (req, res) => {
+export const testSTMPConection = (req, res) => {
   transporter.verify(function (error, success) {
     if (error) {
       res.status(500).send({
@@ -89,13 +87,11 @@ router.get('/test', (req, res) => {
       });
     }
   });
-});
+};
 
 /**
  * Test Sentry configuration
  */
-router.get('/testSentry', (req, res) => {
-  throw new Error('My first Sentry error!');
-});
-
-export default router;
+export const testSentry = () => {
+  throw new Error('Example test Sentry error!');
+};

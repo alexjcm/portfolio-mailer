@@ -1,13 +1,13 @@
-// using CommonJS
 import express from 'express';
 import bodyParser from 'body-parser';
-import dotenv from 'dotenv';
 import cors from 'cors';
+import compression from 'compression';
+import dotenv from 'dotenv';
+import * as Sentry from '@sentry/node';
 import mailerRouter from './routes/mailer';
 import projectRouter from './routes/projects';
 import corsOptions from './config/cors';
 import sentryConfig from './config/sentry';
-import * as Sentry from '@sentry/node';
 
 const app = express();
 
@@ -25,7 +25,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 dotenv.config();
 
 app.use(cors(corsOptions));
+app.use(compression());
 
+/**
+ * Load routes
+ */
 app.use('', mailerRouter);
 app.use('', projectRouter);
 
@@ -47,8 +51,6 @@ if (process.env.NODE_ENV !== 'development') {
  * Optional fallthrough error handler with Sentry
  */
 app.use((err, req, res, next) => {
-  // The error id is attached to `res.sentry` to be returned
-  // and optionally displayed to the user for support.
   res.statusCode = 500;
   res.end(res.sentry + '\n');
 });

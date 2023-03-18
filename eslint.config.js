@@ -1,13 +1,13 @@
 const babelParser = require('@babel/eslint-parser');
-const eslintRecommended = require('@eslint/js/src/configs/eslint-recommended');
-const globals = require('globals');
 const eslintImportErrors = require('eslint-plugin-import/config/errors');
+const eslintRecommended = require('@eslint/js/src/configs/eslint-recommended');
 const eslintImportWarnings = require('eslint-plugin-import/config/warnings');
+const globals = require('globals');
 
 module.exports = [
   eslintRecommended,
   {
-    ignores: ['**/*.config.js'],
+    ignores: ['**/*.config.js', '.prettierrc.js'],
   },
   {
     settings: {
@@ -34,7 +34,7 @@ module.exports = [
       // },
     },
     plugins: [eslintImportErrors, eslintImportWarnings],
-    files: ['**/*.js'],
+    files: ['src/**/*.js'],
     rules: {
       indent: ['error', 2],
       'linebreak-style': ['error', 'unix'],
