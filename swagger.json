@@ -1,0 +1,15 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "description": "Documantation of portfolio-ws api.",
+    "version": "1.0.0",
+    "title": "Porfolio API",
+    "contact": {
+      "email": ""
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/alexjcm/portfolio-ws/blob/main/LICENSE"
+    }
+  }
+}
