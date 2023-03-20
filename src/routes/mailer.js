@@ -1,12 +1,12 @@
 import express from 'express';
-import { bodyEmailValidation } from '../utils/validations';
+import { emailBodyValidation } from '../middlewares/emailBodyValidation';
 import * as mailerController from '../controllers/mailer';
 
 const router = express.Router();
 
-router.post('/mailer/sendMail', bodyEmailValidation, mailerController.sendEmail);
+router.post('/mailer/sendMail', emailBodyValidation, mailerController.sendEmail);
 router.get('/mailer/test', mailerController.testSTMPConection);
 
-router.get('/testSentry', mailerController.testSentry);
+router.get('/sentry/testSentry', mailerController.testSentry);
 
 export default router;

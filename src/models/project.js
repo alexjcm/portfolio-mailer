@@ -18,20 +18,22 @@ export default function (sequelize) {
         type: DataTypes.STRING(255),
         allowNull: false,
       },
-      link: {
+      projectLink: {
         type: DataTypes.STRING(255),
-        allowNull: true,
+      },
+      imageProjectLink: {
+        type: DataTypes.STRING(255),
       },
       status: {
         type: DataTypes.BOOLEAN,
-        allowNull: true,
+        allowNull: false,
       },
     },
     {
       sequelize, // We need to pass the connection instance
       modelName: 'project', // We need to choose the model name
-      timestamps: true, // don't forget to enable timestamps!
-      deletedAt: false, // I don't want deletedAt
+      timestamps: true,
+      deletedAt: false,
     }
   );
 
