@@ -87,7 +87,7 @@ docker pull alexjcm/portfolio-ws
 Start container:
 
 ```bash
-docker run --rm -d -p 5000:5000 --name portfolio-ws --env-file $HOME/secrets/.env alexjcm/portfolio-ws
+docker run --restart always --rm -d -p 5000:5000 --name portfolio-ws --env-file $HOME/secrets/.env alexjcm/portfolio-ws
 ```
 
 Stop container:
