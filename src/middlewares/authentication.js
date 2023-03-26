@@ -2,12 +2,10 @@ import db from '../database';
 import * as tokenHelper from '../helpers/token';
 
 export default async function authenticate(req, res, next) {
-  // Get authorization header from request
   const authorizationHeader = req.headers.authorization || '';
 
   // Firstly, set request user to null to other middleware
   req.user = null;
-
   if (!authorizationHeader) {
     console.warn('Check for empty Authorization header');
     return next();
@@ -18,8 +16,13 @@ export default async function authenticate(req, res, next) {
     return next();
   }
 
-  const token = authorizationHeader.substring(7);
-  const decodedToken = await tokenHelper.verifyToken(token);
+  let decodedToken;
+  try {
+    const token = authorizationHeader.substring(7);
+    decodedToken = await tokenHelper.verifyToken(token);
+  } catch (error) {
+    return res.status(401).json({ message: error });
+  }
 
   const user = await db.models.user.findByPk(decodedToken.id).catch(() => null);
   if (!user) {
@@ -28,7 +31,6 @@ export default async function authenticate(req, res, next) {
 
   // Set request user to other middleware
   req.user = user;
-
 
   // Check if the token renewal time is coming
   // const now = new Date();

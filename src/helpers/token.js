@@ -6,7 +6,7 @@ export const generateToken = (payload, expiresIn = '1h') => {
   const issuer = 'portfolio-ws';
   const options = {
     expiresIn,
-    issuer
+    issuer,
   };
 
   return jwt.sign(payload, secretOrPrivateKey, options);
@@ -16,9 +16,9 @@ export const verifyToken = (token) => {
   return new Promise((resolve, reject) => {
     jwt.verify(token, secretOrPrivateKey, (err, decoded) => {
       if (err) {
-        reject(new Error('Failed to authenticate token.'));
+        reject('Failed to authenticate token.');
       } else {
-        console.log('decoded:', decoded)
+        console.log('decoded:', decoded);
         resolve(decoded);
       }
     });
