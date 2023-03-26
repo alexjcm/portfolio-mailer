@@ -1,8 +1,8 @@
-import express from 'express';
+import { Router } from 'express';
 import { emailBodyValidation } from '../middlewares/emailBodyValidation';
 import * as mailerController from '../controllers/mailer';
 
-const router = express.Router();
+const router = Router();
 
 router.post('/mailer/sendMail', emailBodyValidation, mailerController.sendEmail);
 router.get('/mailer/test', mailerController.testSTMPConection);

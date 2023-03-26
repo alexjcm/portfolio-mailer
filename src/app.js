@@ -7,11 +7,25 @@ import * as Sentry from '@sentry/node';
 import mailerRouter from './routes/mailer';
 import projectRouter from './routes/projects';
 import swaggerRouter from './routes/swagger';
+import authRouter from './routes/auth';
 import corsOptions from './config/cors';
 import sentryConfig from './config/sentry';
+import authenticationMiddleware from './middlewares/authentication';
+
+import db from './database';
 
 const app = express();
 
+//Sync Database
+db.sync()
+  .then(() => {
+    console.log('Connected to database');
+  })
+  .catch((err) => {
+    console.log('Error connecting to database: ', err);
+  });
+
+app.use(authenticationMiddleware);
 if (process.env.NODE_ENV !== 'development') {
   Sentry.init(sentryConfig(app));
   // RequestHandler creates a separate execution context using domains, so that every
@@ -34,6 +48,7 @@ app.use(compression());
 app.use('', mailerRouter);
 app.use('', projectRouter);
 app.use('', swaggerRouter);
+app.use('', authRouter);
 
 /**
  * Handling inexsitent routes. Default response for any other request

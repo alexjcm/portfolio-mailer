@@ -1,18 +1,23 @@
-import express from 'express';
+import { Router } from 'express';
 import * as projectsController from '../controllers/projects';
 import {
   projectBodyValidation,
   idProjectBodyValidation,
 } from '../middlewares/projectBodyValidation';
+import isAuthenticated from '../middlewares/isAuthenticated';
 
-const router = express.Router();
+const router = Router();
 
 router.get('/projects/', projectsController.getAllActiveProjects);
 router.get('/projects/:id', projectsController.getProjectById);
-router.post('/projects/create', projectBodyValidation, projectsController.createProject);
+router.post(
+  '/projects/create',
+  [isAuthenticated, projectBodyValidation],
+  projectsController.createProject
+);
 router.post(
   '/projects/update',
-  [projectBodyValidation, idProjectBodyValidation],
+  [isAuthenticated, projectBodyValidation, idProjectBodyValidation],
   projectsController.updateProject
 );
 
