@@ -14,6 +14,7 @@
 - Format code with Prettier
 - ES6+ features with babel (including es6 import/export feature)
 - Transpile with Babel 7
+- Including authentication system with rest api endpoints
 
 ## Api Documentation
 
@@ -103,9 +104,7 @@ To view the convention used for commit messages, [click here](https://gist.githu
 # TODO
 
 - Api documentation with swagger.
-- Records are never deleted from the database. They are marked as deleted.
 - Test cases written with jest.
-- Including authentication system with rest api endpoints.
 
 ### License
 

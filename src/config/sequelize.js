@@ -16,6 +16,7 @@ const defaultConfig = {
 
 const development = {
   ...defaultConfig,
+  logging: false,
 };
 
 const test = {

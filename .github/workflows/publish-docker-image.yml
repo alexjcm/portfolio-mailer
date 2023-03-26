@@ -40,10 +40,7 @@ jobs:
           message: |
             *DOCKER IMAGE PUSH SUCCESSFUL*
 
-            Repository: *${{ github.repository }}*
-
-            *${{ github.actor }}* created commit message:
-            ${{ github.event.commits[0].message }}          
+            Repository: *${{ github.repository }}*       
                
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
 
