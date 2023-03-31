@@ -97,6 +97,18 @@ Stop container:
 docker stop portfolio-ws
 ```
 
+## Deployment with docker compose V2
+docker volume create sqlite-db
+
+Build images and run container with Docker Compose:
+docker compose -f docker-compose-prod.yml up -d
+
+In case you want to stop containers run:
+docker compose -f docker-compose-prod.yml down
+
+Execute shell command inside container:
+docker exec -it portfolio-ws sh
+
 ## Conventional commits
 
 To view the convention used for commit messages, [click here](https://gist.github.com/alexjcm/6cc0a0a1ed96c85675a9d92706e1099d)

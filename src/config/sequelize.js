@@ -11,7 +11,7 @@ const defaultConfig = {
   database: DB_NAME,
   host: DB_HOST,
   port: Number(DB_PORT),
-  storage: './data/projects.db',
+  storage: './data/portfolio.db',
 };
 
 const development = {
