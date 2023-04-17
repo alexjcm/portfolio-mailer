@@ -15,6 +15,7 @@
 - ES6+ features with babel (including es6 import/export feature)
 - Transpile with Babel 7
 - Including authentication system with rest api endpoints
+- Logging with [Pino](https://www.npmjs.com/package/pino)
 
 ## Api Documentation
 
@@ -98,6 +99,7 @@ docker stop portfolio-ws
 ```
 
 ## Deployment with docker compose V2
+
 docker volume create sqlite-db
 
 Build images and run container with Docker Compose:

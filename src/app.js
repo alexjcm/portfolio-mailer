@@ -11,6 +11,7 @@ import authRouter from './routes/auth';
 import corsOptions from './config/cors';
 import sentryConfig from './config/sentry';
 import authenticationMiddleware from './middlewares/authentication';
+import logger from './logger/logger';
 
 import db from './database';
 
@@ -21,10 +22,10 @@ const app = express();
 //Sync Database
 db.sync()
   .then(() => {
-    console.log('Connected to database');
+    logger.info('Connected to database');
   })
   .catch((err) => {
-    console.log('Error connecting to database: ', err);
+    logger.error(err, 'Error connecting to database: ');
   });
 
 app.use(authenticationMiddleware);

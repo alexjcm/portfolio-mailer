@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import logger from '../logger/logger';
 
 const secretOrPrivateKey = process.env.JWT_SECRET_KEY;
 
@@ -18,7 +19,7 @@ export const verifyToken = (token) => {
       if (err) {
         reject('Failed to authenticate token.');
       } else {
-        console.log('decoded:', decoded);
+        logger.info(decoded, 'decoded:');
         resolve(decoded);
       }
     });

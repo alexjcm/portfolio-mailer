@@ -1,4 +1,5 @@
 import db from '../database';
+import logger from '../logger/logger';
 
 /**
  * Get all active projects
@@ -10,7 +11,7 @@ export const getAllActiveProjects = (req, res, next) => {
       res.status(200).json(projt);
     })
     .catch(function (err) {
-      console.error('error:', err);
+      logger.error(err, 'error:');
     });
 };
 
@@ -25,7 +26,7 @@ export const getProjectById = (req, res, next) => {
       res.status(200).json(projt);
     })
     .catch((err) => {
-      console.error('err:', err);
+      logger.error(err, 'err:');
       res.status(405).json('Error has occured');
     });
 };
@@ -37,7 +38,7 @@ export const createProject = (req, res, next) => {
       res.status(200).json(projt);
     })
     .catch((err) => {
-      console.log('err:', err);
+      logger.log(err, 'err:');
       res.status(405).json('Error creating project');
     });
 };

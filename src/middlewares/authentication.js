@@ -1,5 +1,6 @@
 import db from '../database';
 import * as tokenHelper from '../helpers/token';
+import logger from '../logger/logger';
 
 export default async function authenticate(req, res, next) {
   const authorizationHeader = req.headers.authorization || '';
@@ -7,12 +8,12 @@ export default async function authenticate(req, res, next) {
   // Firstly, set request user to null to other middleware
   req.user = null;
   if (!authorizationHeader) {
-    console.warn('Check for empty Authorization header');
+    logger.warn('Check for empty Authorization header');
     return next();
   }
 
   if (!authorizationHeader.startsWith('Bearer ')) {
-    console.warn('Make sure the token is bearer token');
+    logger.warn('Make sure the token is bearer token');
     return next();
   }
 
@@ -38,7 +39,7 @@ export default async function authenticate(req, res, next) {
   // const difference = exp.getTime() - now.getTime();
   // const minutes = Math.round(difference / 60000);
 
-  // console.log('Check for refresh token and time left')
+  // logger.info('Check for refresh token and time left')
   // if (minutes < 15) {
   //   // Check the user of refresh token
   //   if (refreshTokenData.id === tokenData.id) {

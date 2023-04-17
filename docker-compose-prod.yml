@@ -9,8 +9,6 @@ services:
       - ${HOME}/secrets/.env
     volumes:
       - sqlite-db:/app/data
-      # - ${HOME}/postgres-data/:/var/lib/postgresql/data
-      # - wildfly-static:/opt/wildfly-static
     logging:
       driver: 'json-file'
       options:
@@ -19,4 +17,4 @@ services:
 
 volumes:
   sqlite-db:
-    # external: true
+    external: true
