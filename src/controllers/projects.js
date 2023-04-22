@@ -6,7 +6,10 @@ import logger from '../logger/logger';
  */
 export const getAllActiveProjects = (req, res, next) => {
   db.models.project
-    .findAll({ where: { status: true } })
+    .findAll({
+      attributes: ['id', 'name', 'description', 'projectLink', 'imageProjectLink'],
+      where: { status: true }
+    })
     .then((projt) => {
       res.status(200).json(projt);
     })
@@ -38,7 +41,7 @@ export const createProject = (req, res, next) => {
       res.status(200).json(projt);
     })
     .catch((err) => {
-      logger.log(err, 'err:');
+      logger.error(err, 'err:');
       res.status(405).json('Error creating project');
     });
 };
@@ -60,6 +63,7 @@ export const updateProject = (req, res) => {
       }
     })
     .catch((err) => {
+      logger.error(err, 'err:');
       res.status(500).send({
         message: `Error updating project with id=${req.body.id}`,
       });

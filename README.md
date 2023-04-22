@@ -2,7 +2,7 @@
 
 ## Features and technologies used
 
-- NodeJS 14
+- NodeJS 18
 - [expressjs](https://github.com/expressjs/express) - The server for handling and routing HTTP requests. It is a backend framework for Node.js.
 - [nodemailer](https://github.com/nodemailer/nodemailer) - Is a module for Node.js applications to allow easy as cake email sending
 - SQLite database
