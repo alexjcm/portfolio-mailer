@@ -1,16 +1,20 @@
 import db from '../database';
+import logger from '../logger/logger';
 
 /**
  * Get all active projects
  */
 export const getAllActiveProjects = (req, res, next) => {
   db.models.project
-    .findAll({ where: { status: true } })
+    .findAll({
+      attributes: ['id', 'name', 'description', 'projectLink', 'imageProjectLink'],
+      where: { status: true }
+    })
     .then((projt) => {
       res.status(200).json(projt);
     })
     .catch(function (err) {
-      console.error('error:', err);
+      logger.error(err, 'error:');
     });
 };
 
@@ -25,7 +29,7 @@ export const getProjectById = (req, res, next) => {
       res.status(200).json(projt);
     })
     .catch((err) => {
-      console.error('err:', err);
+      logger.error(err, 'err:');
       res.status(405).json('Error has occured');
     });
 };
@@ -37,7 +41,7 @@ export const createProject = (req, res, next) => {
       res.status(200).json(projt);
     })
     .catch((err) => {
-      console.log('err:', err);
+      logger.error(err, 'err:');
       res.status(405).json('Error creating project');
     });
 };
@@ -59,6 +63,7 @@ export const updateProject = (req, res) => {
       }
     })
     .catch((err) => {
+      logger.error(err, 'err:');
       res.status(500).send({
         message: `Error updating project with id=${req.body.id}`,
       });

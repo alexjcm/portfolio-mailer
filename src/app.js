@@ -11,22 +11,25 @@ import authRouter from './routes/auth';
 import corsOptions from './config/cors';
 import sentryConfig from './config/sentry';
 import authenticationMiddleware from './middlewares/authentication';
+import logger from './logger/logger';
 
 import db from './database';
+
+const env = process.env.NODE_ENV || 'development';
 
 const app = express();
 
 //Sync Database
 db.sync()
   .then(() => {
-    console.log('Connected to database');
+    logger.info('Connected to database');
   })
   .catch((err) => {
-    console.log('Error connecting to database: ', err);
+    logger.error(err, 'Error connecting to database: ');
   });
 
 app.use(authenticationMiddleware);
-if (process.env.NODE_ENV !== 'development') {
+if (env !== 'development') {
   Sentry.init(sentryConfig(app));
   // RequestHandler creates a separate execution context using domains, so that every
   // transaction/span/breadcrumb is attached to its own Hub instance
@@ -59,7 +62,7 @@ app.use((req, res, next) => {
   });
 });
 
-if (process.env.NODE_ENV !== 'development') {
+if (env !== 'development') {
   // The error handler must be before any other error middleware and after all controllers
   app.use(Sentry.Handlers.errorHandler());
 }
@@ -67,7 +70,7 @@ if (process.env.NODE_ENV !== 'development') {
 /**
  * Optional fallthrough error handler with Sentry
  */
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   res.statusCode = 500;
   res.end(res.sentry + '\n');
 });

@@ -2,7 +2,7 @@
 
 ## Features and technologies used
 
-- NodeJS 14
+- NodeJS 18
 - [expressjs](https://github.com/expressjs/express) - The server for handling and routing HTTP requests. It is a backend framework for Node.js.
 - [nodemailer](https://github.com/nodemailer/nodemailer) - Is a module for Node.js applications to allow easy as cake email sending
 - SQLite database
@@ -15,6 +15,7 @@
 - ES6+ features with babel (including es6 import/export feature)
 - Transpile with Babel 7
 - Including authentication system with rest api endpoints
+- Logging with [Pino](https://www.npmjs.com/package/pino)
 
 ## Api Documentation
 
@@ -88,7 +89,7 @@ docker pull alexjcm/portfolio-ws
 Start container:
 
 ```bash
-docker run --restart always --rm -d -p 5000:5000 --name portfolio-ws --env-file $HOME/secrets/.env alexjcm/portfolio-ws
+docker run --restart always -d -p 5000:5000 --name portfolio-ws --env-file $HOME/secrets/.env alexjcm/portfolio-ws
 ```
 
 Stop container:
@@ -96,6 +97,19 @@ Stop container:
 ```bash
 docker stop portfolio-ws
 ```
+
+## Deployment with docker compose V2
+
+docker volume create sqlite-db
+
+Build images and run container with Docker Compose:
+docker compose -f docker-compose-prod.yml up -d
+
+In case you want to stop containers run:
+docker compose -f docker-compose-prod.yml down
+
+Execute shell command inside container:
+docker exec -it portfolio-ws sh
 
 ## Conventional commits
 

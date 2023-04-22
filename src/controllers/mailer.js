@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 import { validationResult } from 'express-validator';
 import { emailConfig, messages } from '../utils/constants';
+import logger from '../logger/logger';
 
 dotenv.config();
 
@@ -24,7 +25,7 @@ const transporter = nodemailer.createTransport({
 export const sendEmail = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    console.error('errors: ', errors);
+    logger.error(errors, 'errors: ');
     return res.status(422).json({
       status: messages.FAIL_STATUS,
       errors: errors.array(),
@@ -47,7 +48,7 @@ export const sendEmail = (req, res) => {
       '</p>',
   };
 
-  console.log('mailData: ', mailData);
+  logger.info(mailData, 'mailData: ');
 
   transporter.sendMail(mailData, (error, info) => {
     if (error) {
@@ -57,7 +58,7 @@ export const sendEmail = (req, res) => {
         error: error.message,
       });
 
-      console.error('Mail failed to send - ', error);
+      logger.error(error, 'Mail failed to send - ');
     } else {
       res.status(200).send({
         status: messages.SUCCESS_STATUS,

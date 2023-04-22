@@ -1,0 +1,20 @@
+services:
+  app:
+    image: alexjcm/portfolio-ws
+    container_name: portfolio-ws
+    restart: always
+    ports:
+      - 5000:5000
+    env_file:
+      - ${HOME}/secrets/.env
+    volumes:
+      - sqlite-db:/app/data
+    logging:
+      driver: 'json-file'
+      options:
+        max-file: 10
+        max-size: 4m
+
+volumes:
+  sqlite-db:
+    external: true

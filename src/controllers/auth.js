@@ -1,6 +1,7 @@
 import db from '../database';
 import { compare } from 'bcrypt';
 import * as tokenHelper from '../helpers/token';
+import logger from '../logger/logger';
 
 export const login = async (req, res, next) => {
   try {
@@ -47,7 +48,7 @@ export const register = async (req, res, next) => {
     const token = tokenHelper.generateToken(data, expiresIn);
     res.status(201).json({ token: token });
   } catch (err) {
-    console.error('Error register:', err);
+    logger.error(err, 'Error register:');
     next(err);
   }
 };

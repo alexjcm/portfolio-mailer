@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:18-alpine
 
 WORKDIR /app
 
@@ -10,7 +10,6 @@ RUN npm install
 
 ENV NODE_ENV=production
 
-# Expose the port used by the web server
 EXPOSE 5000
 
 # Start the web server
