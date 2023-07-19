@@ -40,7 +40,6 @@ If you want to use postgresql in your project, you don't need to make any change
 | MariaDB              | mariadb  | `yarn add mariadb`      |
 | PostgreSQL           | postgres | `yarn add pg pg-hstore` |
 | SQLite               | sqlite   | `yarn add sqlite3`      |
-| Microsoft SQL Server | mssql    | `yarn add tedious`      |
 
 ### Usage of sequelize-cli
 
@@ -61,9 +60,9 @@ git clone https://github.com/alexjcm/portfolio-ws.git
 npm install
 ```
 
-3. Create **.env** file by copying .env.example file in root directory.
+3. Create **.env.local** file by copying .env.example file in root directory.
 
-4. Modify .env file.
+4. Modify .env.local file.
 
 5. Finally, in the project directory, you can run: your app will run successfully with **npm run start:dev** command
 
@@ -98,7 +97,7 @@ Stop container:
 docker stop portfolio-ws
 ```
 
-## Deployment with docker compose V2
+## Deployment with docker compose
 
 docker volume create sqlite-db
 
