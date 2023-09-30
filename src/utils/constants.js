@@ -1,6 +1,6 @@
 const serverConfig = {
   PORT: 5000,
-  WHITELIST: ['http://localhost:3000', 'https://alexjcm.me'],
+  WHITELIST: ['http://localhost:3000', 'https://alexjcm.com'],
 };
 
 const emailConfig = {
@@ -15,7 +15,7 @@ const messages = {
   SUCCESS_STATUS: 'success',
   FAILED_MESSAGE: 'Mail failed to send',
   SUCCESS_MESSAGE: 'Mail send',
-  DEFAULT_SUBJECT: '📌 New message sent from personal page alexjcm.me',
+  DEFAULT_SUBJECT: '📌 New message sent from personal page alexjcm.com',
 };
 
 export { serverConfig, emailConfig, messages };
