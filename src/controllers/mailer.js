@@ -43,7 +43,7 @@ export const sendEmail = (req, res) => {
       name +
       ', cuyo correo es: ' +
       to +
-      ' te ha enviado el siguiente mensaje desde alexjcm.me:</p><p>' +
+      ' te ha enviado el siguiente mensaje desde alexjcm.com:</p><p>' +
       message +
       '</p>',
   };
