@@ -8,7 +8,7 @@ export const getAllActiveProjects = (req, res, next) => {
   db.models.project
     .findAll({
       attributes: ['id', 'name', 'description', 'projectLink', 'imageProjectLink'],
-      where: { status: true }
+      where: { status: true },
     })
     .then((projt) => {
       res.status(200).json(projt);
@@ -67,5 +67,33 @@ export const updateProject = (req, res) => {
       res.status(500).send({
         message: `Error updating project with id=${req.body.id}`,
       });
+    });
+};
+
+export const incrementVisit = (req, res) => {
+  db.models.visit
+    .findOrCreate({
+      where: { },
+      defaults: { counter: 1 },
+    })
+    .then(([visit, created]) => {
+      if (!created) {
+        visit
+        .increment('counter')
+        .then(() => visit.save());
+        res.send({
+          message: 'Visit was updated successfully.',
+          data: visit
+        });
+      } else {
+        res.send({
+          message: 'Visit was created successfully.',
+          data: visit
+        });
+      }
+    })
+    .catch((error) => {
+      logger.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
     });
 };

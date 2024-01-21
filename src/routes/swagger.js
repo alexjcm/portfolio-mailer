@@ -4,7 +4,9 @@ import swaggerUi from 'swagger-ui-express';
 
 const router = Router();
 
-router.use('/api-docs', swaggerUi.serve);
-router.get('/api-docs', swaggerUi.setup(swaggerDocument));
+// TODO: Temporarily deactivate because not yet used
+
+// router.use('/api-docs', swaggerUi.serve);
+// router.get('/api-docs', swaggerUi.setup(swaggerDocument));
 
 export default router;

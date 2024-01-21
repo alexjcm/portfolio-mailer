@@ -28,10 +28,6 @@ module.exports = [
       },
       ecmaVersion: 2017,
       parser: babelParser,
-      // parserOptions: {
-      //   ecmaVersion: 2017,
-      //   //sourceType: 'module',
-      // },
     },
     plugins: [eslintImportErrors, eslintImportWarnings],
     files: ['src/**/*.js'],
