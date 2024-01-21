@@ -19,7 +19,6 @@ const env = process.env.NODE_ENV || 'development';
 
 const app = express();
 
-//Sync Database
 db.sync()
   .then(() => {
     logger.info('Connected to database');
@@ -28,15 +27,14 @@ db.sync()
     logger.error(err, 'Error connecting to database: ');
   });
 
+  if (env !== 'development') {
+    Sentry.init(sentryConfig(app));
+    // The request handler must be the first middleware on the app
+    app.use(Sentry.Handlers.requestHandler());
+    app.use(Sentry.Handlers.tracingHandler());
+  }
+
 app.use(authenticationMiddleware);
-if (env !== 'development') {
-  Sentry.init(sentryConfig(app));
-  // RequestHandler creates a separate execution context using domains, so that every
-  // transaction/span/breadcrumb is attached to its own Hub instance
-  app.use(Sentry.Handlers.requestHandler());
-  // TracingHandler creates a trace for every incoming request
-  app.use(Sentry.Handlers.tracingHandler());
-}
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -67,12 +65,12 @@ if (env !== 'development') {
   app.use(Sentry.Handlers.errorHandler());
 }
 
-/**
- * Optional fallthrough error handler with Sentry
- */
-app.use((err, req, res) => {
-  res.statusCode = 500;
-  res.end(res.sentry + '\n');
-});
+// /**
+//  * Optional fallthrough error handler with Sentry
+//  */
+// app.use((err, req, res) => {
+//   res.statusCode = 500;
+//   res.end(res.sentry + '\n');
+// });
 
 module.exports = app;
