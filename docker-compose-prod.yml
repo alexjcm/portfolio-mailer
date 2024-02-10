@@ -8,13 +8,14 @@ services:
     env_file:
       - ${HOME}/secrets/.env
     volumes:
-      - sqlite-db:/app/data
+      # - sqlite-db:/app/data
+      - ${HOME}/data:/app/data
     logging:
       driver: 'json-file'
       options:
         max-file: 10
         max-size: 4m
 
-volumes:
-  sqlite-db:
-    external: true
+# volumes:
+#   sqlite-db:
+#     external: true

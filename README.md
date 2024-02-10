@@ -19,8 +19,8 @@
 
 ## Api Documentation
 
-Api documentation of this project was created with [swagger 3](https://swagger.io/).  
-You can access the swagger configuration file from [this link](https://app.swaggerhub.com/apis/....).  
+Api documentation of this project was created with [swagger 3](https://swagger.io/).
+You can access the swagger configuration file from [this link](https://app.swaggerhub.com/apis/....).
 You can also discover the interactive documentation by going to `/api-docs` when you run the application.
 
 ## Database Selection
@@ -74,41 +74,44 @@ Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 ## Deployment with docker
 
 Build image:
-
 ```bash
 docker build -t alexjcm/portfolio-ws -f DockerfilePro .
 ```
 
-Or
+Or:
 
 ```bash
 docker pull alexjcm/portfolio-ws
 ```
 
 Start container:
-
 ```bash
 docker run --restart always -d -p 5000:5000 --name portfolio-ws --env-file $HOME/secrets/.env alexjcm/portfolio-ws
+
+docker run --restart always -d -p 5000:5000 -v ${HOME}/data:/app/data --name portfolio-ws --env-file $HOME/secrets/.env alexjcm/portfolio-ws
 ```
 
 Stop container:
-
 ```bash
 docker stop portfolio-ws
 ```
 
-## Deployment with docker compose
+Execute shell command inside container:
+```bash
+docker exec -it portfolio-ws sh
+```
 
-docker volume create sqlite-db
+## Deployment with docker compose (Optional)
 
 Build images and run container with Docker Compose:
+```bash
 docker compose -f docker-compose-prod.yml up -d
+```
 
 In case you want to stop containers run:
+```bash
 docker compose -f docker-compose-prod.yml down
-
-Execute shell command inside container:
-docker exec -it portfolio-ws sh
+```
 
 ## Conventional commits
 
