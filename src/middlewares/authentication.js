@@ -8,7 +8,7 @@ export default async function authenticate(req, res, next) {
   // Firstly, set request user to null to other middleware
   req.user = null;
   if (!authorizationHeader) {
-    logger.warn('Check for empty Authorization header');
+    logger.warn('Empty Authorization header');
     return next();
   }
 

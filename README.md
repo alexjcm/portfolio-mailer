@@ -2,11 +2,12 @@
 
 ## Features and technologies used
 
-- NodeJS 18
+- NodeJS 22
 - [expressjs](https://github.com/expressjs/express) - The server for handling and routing HTTP requests. It is a backend framework for Node.js.
 - [nodemailer](https://github.com/nodemailer/nodemailer) - Is a module for Node.js applications to allow easy as cake email sending
 - SQLite database
 - SQL database implementation with **[Sequelize v6](https://sequelize.org/docs/v6/)** ORM
+- Caching with Redis
 - dotenv module for setting environment
 - Implemented [sentry](https://sentry.io) error tracking and monitoring
 - Production ready Dockerfile
@@ -14,7 +15,7 @@
 - Format code with Prettier
 - ES6+ features with babel (including es6 import/export feature)
 - Transpile with Babel 7
-- Including authentication system with rest api endpoints
+- Include JWT authentication
 - Logging with [Pino](https://www.npmjs.com/package/pino)
 
 ## Api Documentation
@@ -37,7 +38,6 @@ If you want to use postgresql in your project, you don't need to make any change
 | Database             | Dialect  | Required npm Package(s) |
 | -------------------- | -------- | ----------------------- |
 | MySQL                | mysql    | `yarn add mysql2`       |
-| MariaDB              | mariadb  | `yarn add mariadb`      |
 | PostgreSQL           | postgres | `yarn add pg pg-hstore` |
 | SQLite               | sqlite   | `yarn add sqlite3`      |
 
@@ -48,23 +48,17 @@ You can find more information with [document](https://sequelize.org/docs/v6/othe
 
 ## Installation
 
-1. Clone or download this repository:
-
-```
-git clone https://github.com/alexjcm/portfolio-ws.git
-```
-
-2.  Install npm packages with yarn install command.
+1. Install npm packages with yarn install command.
 
 ```
 npm install
 ```
 
-3. Create **.env.local** file by copying .env.example file in root directory.
+2. Create **.env.local** file by copying .env.example file in root directory.
 
-4. Modify .env.local file.
+3. Modify .env.local file.
 
-5. Finally, in the project directory, you can run: your app will run successfully with **npm run start:dev** command
+4. Finally, in the project directory, you can run: your app will run successfully with **npm run start:dev** command
 
 Or `npm start`
 
@@ -75,7 +69,7 @@ Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 
 Build image:
 ```bash
-docker build -t alexjcm/portfolio-ws -f DockerfilePro .
+docker build -t alexjcm/portfolio-ws -f DockerfileProd . --platform linux/amd64
 ```
 
 Or:
@@ -85,10 +79,11 @@ docker pull alexjcm/portfolio-ws
 ```
 
 Start container:
+Use --network host so that the container can connect to Redis:
 ```bash
-docker run --restart always -d -p 5000:5000 --name portfolio-ws --env-file $HOME/secrets/.env alexjcm/portfolio-ws
-
-docker run --restart always -d -p 5000:5000 -v ${HOME}/data:/app/data --name portfolio-ws --env-file $HOME/secrets/.env alexjcm/portfolio-ws
+docker run --restart always -d -p 5000:5000 \
+--network host -v ${HOME}/data:/app/data --name portfolio-ws \
+--env-file $HOME/secrets/.env alexjcm/portfolio-ws
 ```
 
 Stop container:
@@ -105,12 +100,12 @@ docker exec -it portfolio-ws sh
 
 Build images and run container with Docker Compose:
 ```bash
-docker compose -f docker-compose-prod.yml up -d
+docker compose -f docker-compose-dev.yml up -d
 ```
 
 In case you want to stop containers run:
 ```bash
-docker compose -f docker-compose-prod.yml down
+docker compose -f docker-compose-dev.yml down
 ```
 
 ## Conventional commits

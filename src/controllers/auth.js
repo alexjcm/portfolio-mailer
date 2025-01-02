@@ -20,7 +20,14 @@ export const login = async (req, res, next) => {
 
     const data = { id: user.id, email: user.email };
     const expiresIn = '1h';
-    const token = tokenHelper.generateToken(data, expiresIn);
+    let token;
+    try {
+      token = tokenHelper.generateToken(data, expiresIn);
+      logger.info('Token generated');
+    } catch (err) {
+      logger.error(err, 'Error generating token:');
+      return res.status(500).json({ message: 'Internal server error D' });
+    }
 
     return res.status(200).json({ token: token });
   } catch (err) {
@@ -40,7 +47,6 @@ export const getCurrentUser = async (req, res, next) => {
 export const register = async (req, res, next) => {
   try {
     const user = await db.models.user.create(req.body, {
-      fields: ['email', 'password', 'status'],
     });
 
     const data = { id: user.id, email: user.email };

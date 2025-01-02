@@ -1,3 +1,5 @@
+// Import this first!
+import "./config/instrument";
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -9,12 +11,12 @@ import projectRouter from './routes/projects';
 import swaggerRouter from './routes/swagger';
 import authRouter from './routes/auth';
 import corsOptions from './config/cors';
-import sentryConfig from './config/sentry';
 import authenticationMiddleware from './middlewares/authentication';
 import logger from './logger/logger';
 
 import db from './database';
 
+dotenv.config();
 const env = process.env.NODE_ENV || 'development';
 
 const app = express();
@@ -27,18 +29,10 @@ db.sync()
     logger.error(err, 'Error connecting to database: ');
   });
 
-  if (env !== 'development') {
-    Sentry.init(sentryConfig(app));
-    // The request handler must be the first middleware on the app
-    app.use(Sentry.Handlers.requestHandler());
-    app.use(Sentry.Handlers.tracingHandler());
-  }
-
 app.use(authenticationMiddleware);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-dotenv.config();
 
 app.use(cors(corsOptions));
 app.use(compression());
@@ -60,17 +54,10 @@ app.use((req, res, next) => {
   });
 });
 
+// Add this after all routes,
+// but before any and other error-handling middlewares are defined
 if (env !== 'development') {
-  // The error handler must be before any other error middleware and after all controllers
-  app.use(Sentry.Handlers.errorHandler());
+  Sentry.setupExpressErrorHandler(app);
 }
-
-// /**
-//  * Optional fallthrough error handler with Sentry
-//  */
-// app.use((err, req, res) => {
-//   res.statusCode = 500;
-//   res.end(res.sentry + '\n');
-// });
 
 module.exports = app;

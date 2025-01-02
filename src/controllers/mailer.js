@@ -96,3 +96,10 @@ export const testSTMPConection = (req, res) => {
 export const testSentry = () => {
   throw new Error('Example test Sentry error!');
 };
+
+export const testDate  = (req, res) => {
+  const date = new Date().toISOString();
+  res.status(200).send({
+    date: date
+  });
+};
