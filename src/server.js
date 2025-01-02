@@ -1,8 +1,9 @@
 require('@babel/register');
 const app = require('./app');
-const { serverConfig } = require('./utils/constants');
+
+const port = process.env.PORT || 5010;
 
 // Start server
-app.listen(serverConfig.PORT, () => {
-  console.log(`Server listening on port: ${serverConfig.PORT}`);
+app.listen(port, () => {
+  console.log(`Server listening on port: ${port}`);
 });

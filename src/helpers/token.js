@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import logger from '../logger/logger';
 
-const secretOrPrivateKey = process.env.JWT_SECRET_KEY;
+const secretOrPrivateKey = process.env.JWT_SECRET_KEY || 'your-secret';
 
 export const generateToken = (payload, expiresIn = '1h') => {
   const issuer = 'portfolio-ws';

@@ -1,12 +1,16 @@
 const serverConfig = {
-  PORT: 5000,
   WHITELIST: ['http://localhost:3000', 'https://alexjcm.com'],
+};
+
+const cacheConfig = {
+  PROJECTS_CACHE_KEY: 'projects:active',
+  PROJECTS_CACHE_TTL: 2592000, // 30 days in seconds
 };
 
 const emailConfig = {
   SMTP_HOST: 'smtp.gmail.com',
   SMTP_USE_SSL: true, // true for 465 (use SSL), false for other ports
-  SENDER_EMAIL: 'certificacion.cis@gmail.com',
+  SENDER_EMAIL: 'alex.test.jcm@gmail.com',
   TO_EMAIL: 'alexjhcm@gmail.com',
 };
 
@@ -18,4 +22,4 @@ const messages = {
   DEFAULT_SUBJECT: '📌 New message sent from personal page alexjcm.com',
 };
 
-export { serverConfig, emailConfig, messages };
+export { serverConfig, emailConfig, messages, cacheConfig };
