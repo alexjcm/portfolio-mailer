@@ -1,10 +1,10 @@
 import { serverConfig } from '../utils/constants';
 
-const configCors = {
+const corsOptions = {
   origin: serverConfig.WHITELIST,
   optionsSuccessStatus: 200, // For legacy browser support
-  allowedHeaders: ['Content-Type', 'Authorization', 'RefreshToken'],
-  exposedHeaders: ['Content-Length', 'Content-Type', 'RefreshToken', 'Token'],
+  methods: 'GET,POST,PUT,DELETE',
+  allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
-export default configCors;
+export default corsOptions;

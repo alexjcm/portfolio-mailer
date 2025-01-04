@@ -130,30 +130,3 @@ export const updateProject = async (req, res) => {
   }
 };
 
-export const incrementVisit = (req, res) => {
-  db.models.visit
-    .findOrCreate({
-      where: { },
-      defaults: { counter: 1 },
-    })
-    .then(([visit, created]) => {
-      if (!created) {
-        visit
-        .increment('counter')
-        .then(() => visit.save());
-        res.send({
-          message: 'Visit was updated successfully.',
-          data: visit
-        });
-      } else {
-        res.send({
-          message: 'Visit was created successfully.',
-          data: visit
-        });
-      }
-    })
-    .catch((error) => {
-      logger.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    });
-};

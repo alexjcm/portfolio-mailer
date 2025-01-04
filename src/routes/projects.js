@@ -8,8 +8,6 @@ import isAuthenticated from '../middlewares/isAuthenticated';
 
 const router = Router();
 
-router.get('/projects/incrementVisit', projectsController.incrementVisit);
-
 router.get('/projects/', projectsController.getAllActiveProjects);
 router.get('/projects/:id', projectsController.getProjectById);
 router.post(
