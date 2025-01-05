@@ -83,7 +83,7 @@ Use --network host so that the container can connect to Redis:
 ```bash
 docker run --restart always -d -p 5000:5000 \
 --network host -v ${HOME}/data:/app/data --name portfolio-ws \
---env-file $HOME/secrets/.env alexjcm/portfolio-ws
+--env-file $HOME/secrets/portfolio-ws/.env alexjcm/portfolio-ws
 ```
 
 Stop container:
